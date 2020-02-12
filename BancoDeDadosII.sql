@@ -152,3 +152,9 @@ INSERT INTO VENDAS_ITENS (CODIGO, SEQUENCIA, ITEM, VALOR_UNIT, QUANTIDADE, VALOR
 				  group by c.nome
 				  order by c.nome;
 				  
+				  select coalesce(sum(v.valor_desconto),0),  lower(c.nome) 
+				  from vendas v 
+				  full join clientes c 
+				  on c.codigo = v.cliente
+				  group by c.nome
+				  order by c.nome;
