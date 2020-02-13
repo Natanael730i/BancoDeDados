@@ -167,3 +167,11 @@ INSERT INTO VENDAS_ITENS (CODIGO, SEQUENCIA, ITEM, VALOR_UNIT, QUANTIDADE, VALOR
 				 inner join itens i on i.codigo = vi.item
 				 where v.data_venda between '2019-08-01' and '2019-08-30' 
 				 group by vi.item, i.descricao, v.data_venda
+				 
+				 4-----------------------------
+				select v.data_venda , m.nome, sum(vi.valor_bruto) as total_vendas, sum(vi.valor_desconto) as total_desconto from vendas v 
+				inner join vendas_itens vi on vi.codigo = v.codigo 
+				inner join itens i on i.codigo = vi.item
+				inner join marcas m on m.codigo = i.marca
+				where v.data_venda between '2019-08-01' and '2019-08-30' 
+				group by vi.item, i.descricao, v.data_venda,m.nome
