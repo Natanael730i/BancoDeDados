@@ -144,17 +144,26 @@ INSERT INTO VENDAS_ITENS (CODIGO, SEQUENCIA, ITEM, VALOR_UNIT, QUANTIDADE, VALOR
                   VALUES (4, 1, 8, 5, 10, 50, 0, 50);
 		  
 		  
-				 
-				 select sum(coalesce(v.valor_desconto, 0)), c.nome 
+				  1------------------------
+				  select sum(coalesce(v.valor_desconto, 0)), c.nome 
 				  from vendas v 
 				  full join clientes c 
 				  on c.codigo = v.cliente
 				  group by c.nome
 				  order by c.nome;
 				  
+				  2---------------------------
 				  select coalesce(sum(v.valor_desconto),0),  lower(c.nome) 
 				  from vendas v 
 				  full join clientes c 
 				  on c.codigo = v.cliente
 				  group by c.nome
 				  order by c.nome;
+				  
+				  3--------------------------
+				 select v.data_venda , vi.item, i.descricao, sum(vi.valor_bruto) 
+				 as total_vendas, sum(vi.valor_desconto) as total_desconto from vendas v 
+				 inner join vendas_itens vi on vi.codigo = v.codigo 
+				 inner join itens i on i.codigo = vi.item
+				 where v.data_venda between '2019-08-01' and '2019-08-30' 
+				 group by vi.item, i.descricao, v.data_venda
