@@ -176,8 +176,9 @@ INSERT INTO VENDAS_ITENS (CODIGO, SEQUENCIA, ITEM, VALOR_UNIT, QUANTIDADE, VALOR
 				where v.data_venda between '2019-08-01' and '2019-08-30' 
 				group by vi.item, i.descricao, v.data_venda,m.nome
 				
-				
+	------------------------------------------------------------------------------------------------------------------------
 				1) functions
+					     
 				1-----------------------------
 				
 				create or replace function retorna_nome_cliente(clienteid int)
@@ -199,9 +200,21 @@ INSERT INTO VENDAS_ITENS (CODIGO, SEQUENCIA, ITEM, VALOR_UNIT, QUANTIDADE, VALOR
 				end
 				$$
 				language plpgsql
-				
+	-----------------------------------------------------------------------------------------------------------------------			
 				2----------------------------------------------------------
+				create or replace function soma(n1 int, n2 int)
+				returns int as
+				$$
+				begin
+					return n1 + n2;
+				end;
+				$$
+				language plpgsql
+	-----------------------------------------------------------------------------------------------------------------------	     
+	|			para chama-la usar 										|
+	|			select soma(1,2)										|			
+	-----------------------------------------------------------------------------------------------------------------------			
+				3---------------------------------------------------------------
 				
 				
-			
 
