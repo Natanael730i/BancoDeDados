@@ -175,3 +175,33 @@ INSERT INTO VENDAS_ITENS (CODIGO, SEQUENCIA, ITEM, VALOR_UNIT, QUANTIDADE, VALOR
 				inner join marcas m on m.codigo = i.marca
 				where v.data_venda between '2019-08-01' and '2019-08-30' 
 				group by vi.item, i.descricao, v.data_venda,m.nome
+				
+				
+				1) functions
+				1-----------------------------
+				
+				create or replace function retorna_nome_cliente(clienteid int)
+				return text as
+				$$
+				declare
+					vnome text;
+					vativo text;
+				begin
+					select nome, ativo
+						into vnome,vativo
+						from clientes where codigo = clienteid;
+
+						if vativo ='s' then
+							return vnome || '-' || 'Usuário Ativo';
+						else
+							return vnome || '-' || 'Usuário Inativo';
+						end if;
+				end
+				$$
+				language plpgsql
+				
+				2----------------------------------------------------------
+				
+				
+			
+
