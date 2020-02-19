@@ -181,7 +181,7 @@ INSERT INTO VENDAS_ITENS (CODIGO, SEQUENCIA, ITEM, VALOR_UNIT, QUANTIDADE, VALOR
 				1-----------------------------
 				
 				create or replace function retorna_nome_cliente(clienteid int)
-				return text as
+				returns text as
 				$$
 				declare
 					vnome text;
