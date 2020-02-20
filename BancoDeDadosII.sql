@@ -216,5 +216,20 @@ INSERT INTO VENDAS_ITENS (CODIGO, SEQUENCIA, ITEM, VALOR_UNIT, QUANTIDADE, VALOR
 	-----------------------------------------------------------------------------------------------------------------------			
 				3---------------------------------------------------------------
 				
-				
+				create or replace function retorna_nome_cliente(clienteid int)
+				returns text as
+				$$
+				declare
+					cnome text;
+				begin
 
+					select c.nome into cnome from clientes c where c.codigo = clienteid;
+
+					return cnome;
+
+				end
+				$$
+				language plpgsql;
+	-----------------------------------------------------------------------------------------    
+	|			select retorna_nome_cliente(1);					|
+	-----------------------------------------------------------------------------------------
