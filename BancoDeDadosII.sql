@@ -233,3 +233,66 @@ INSERT INTO VENDAS_ITENS (CODIGO, SEQUENCIA, ITEM, VALOR_UNIT, QUANTIDADE, VALOR
 	-----------------------------------------------------------------------------------------    
 	|			select retorna_nome_cliente(1);					|
 	-----------------------------------------------------------------------------------------
+					     
+					     
+/*usando like - case sensetive*/
+select * from clientes where nomes like E%;
+select * from clientes where nomes like %a;
+select * from clientes where nomes like %li%;
+
+/*usando ilike - case insensetive*/
+select * from clientes where nomes ilike li%;
+select * from clientes where nomes ilike %li;
+select * from clientes where nomes ilike %li%;
+
+
+Create or replace function clientes()
+returns setof clientes AS
+$$
+declare
+	--cursor
+	reg clientes%rowtype;
+BEGIN
+		--realiza um loop em todos os clientes da tabela
+for reg in
+select codigo,nome,cpf from clientes
+	loop
+	return next reg;
+	end loop;
+	return;
+END;
+$$
+LANGUAGE plpgsql;
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=FUNSIONE=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+	
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=FUNSIONE=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+select * from clientes();
+/*Retorna nulo em todos os campos em que nao foram chamados na funcao*/
+create function
+quebrapc()
+returns float as
+$$
+begin
+for int 0
+select random();
+end;
+$$
+Language plpgsql
+
+create function selecionaporcpf(cpfdigitado varchar)
+returns text as
+$$
+begin
+select codigo,nome,cpf from clientes where cpf = cpfdigitado
+return cpfdigitado;
+end;
+$$
+language plpgsql
+select selecionarporcpf('86976005021');
+--------------------------------------------------------------------------------------------------------------------------------------  
+/*Buscar todos os clientes que contenham 'fael' no nome*/
+select * from clientes where nomes like %fael%;
+/*Buscar todos os clientes que inicie com 'clie'*/					     
+select * from clientes where nomes like clie%;
+/*Buscar todos os produtos que terminem com 'uto'*/					     
+select * from produtos where descricao ilike %uto;
